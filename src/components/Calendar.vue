@@ -1,6 +1,7 @@
 <template>
   <div class="calendar">
     <div class="calendar__title">My Calendar</div>
+    <CalendarAdd />
     <CalendarHead />
     <CalendarNavigation />
     <CalendarBody />
@@ -9,12 +10,14 @@
 
 <script>
 import CalendarHead from "@/components/CalendarHead";
+import CalendarAdd from "@/components/CalendarAdd";
 import CalendarNavigation from "@/components/CalendarNavigation";
 import CalendarBody from "@/components/CalendarBody";
 export default {
   name: "Calendar",
   components: {
     CalendarHead,
+    CalendarAdd,
     CalendarNavigation,
     CalendarBody,
   },

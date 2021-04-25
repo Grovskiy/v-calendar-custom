@@ -1,14 +1,24 @@
 <template>
   <div class="calendar-body">
-    {{ date }}
-    <br />
-    month: {{ month }}
-    <br />
-    empty_days: {{ empty_days }}
-    <br />
-    count_days: {{ count_days }}
-    <br />
-    year: {{ year }}
+    <template v-if="empty_days">
+      <div
+        v-for="key in empty_days"
+        :key="key"
+        class="calendar-body__cell calendar-body__cell_empty"
+      ></div>
+    </template>
+    <div v-for="item in cells_days" :key="item.id" class="calendar-body__cell">
+      {{ item.day }}
+      <div v-if="item.events">
+        <div
+          v-for="(item, key) in item.events"
+          :key="key"
+          class="calendar-body__accent"
+        >
+          {{ item.title }}
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -24,37 +34,34 @@ export default {
     ...mapState("calendar", [
       "date",
       "month",
+      "day",
       "year",
       "count_days",
       "empty_days",
+      "cells_days",
     ]),
-  },
-  mounted() {
-    this.init();
-  },
-  methods: {
-    init() {
-      console.log("init");
-    },
   },
 };
 </script>
 
 <style scoped lang="scss">
-.calendar-head {
+.calendar-body {
   display: flex;
-  justify-content: space-around;
-  padding: 20px 0;
-  background: #49617b;
-  list-style-type: none;
+  flex-wrap: wrap;
 
-  &__item {
-    color: #fff;
-    font-size: 1.2em;
-    width: 110px;
-    text-align: left;
+  &__cell {
+    width: 118px;
+    height: 70px;
+    margin: 4px;
     border: 1px solid #000;
-    border-radius: 4px;
+
+    &_empty {
+      background: gray;
+    }
+  }
+  &__accent {
+    color: red;
+    font-weight: 500;
   }
 }
 </style>
